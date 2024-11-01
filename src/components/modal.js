@@ -1,4 +1,5 @@
 const popupForms = document.querySelector(".popup__form");
+
 const handleEscKeyUp = (e) => {
   if (e.key === "Escape") {
     const popupOpen = document.querySelector(".popup_is-opened");
