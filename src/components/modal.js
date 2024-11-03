@@ -1,4 +1,3 @@
-const popupForms = document.querySelector(".popup__form");
 
 const handleEscKeyUp = (e) => {
   if (e.key === "Escape") {
@@ -15,10 +14,9 @@ export const openModal = (modal) => {
 export const closeModal = (modal) => {
   modal.classList.remove("popup_is-opened");
   document.removeEventListener("keydown", handleEscKeyUp);
-  popupForms.reset();
 };
 
-export const addListener = (el) => {
+export const addCloseListeners  = (el) => {
   const popupClose = el.querySelector(".popup__close");
   popupClose.addEventListener("click", () => {
     closeModal(el);

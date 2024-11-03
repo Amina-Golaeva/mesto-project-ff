@@ -3,8 +3,8 @@ const cardTemplate = document.querySelector("#card-template").content;
 export const createCard = function (
   name,
   link,
-  deleteButton,
-  likeButton,
+  handleDeleteButton,
+  handleLikeButton,
   openPopupImg
 ) {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
@@ -15,21 +15,21 @@ export const createCard = function (
   cardImg.alt = name;
   cardElement
     .querySelector(".card__delete-button")
-    .addEventListener("click", deleteButton);
+    .addEventListener("click", handleDeleteButton);
   cardElement
     .querySelector(".card__like-button")
-    .addEventListener("click", likeButton);
+    .addEventListener("click", handleLikeButton);
   cardImg.addEventListener("click", () => openPopupImg(name, link));
   return cardElement;
 };
 
 // @todo: Функция удаления карточки
-export function deleteButton(evt) {
+export function handleDeleteButton(evt) {
   const listItem = evt.target.closest(".card");
   listItem.remove();
 }
 
 // лайк карточки
-export function likeButton(evt) {
-  const listItem = evt.target.classList.toggle("card__like-button_is-active");
+export function handleLikeButton(evt) {
+ evt.target.classList.toggle("card__like-button_is-active");
 }
