@@ -17,3 +17,6 @@
     padding: 30px 20px;
   }
 }
+.popup__content_avatar_image {
+  min-height: 0px;
+}

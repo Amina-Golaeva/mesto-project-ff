@@ -1,4 +1,5 @@
 .profile__image {
+  position: relative;
   width: 120px;
   height: 120px;
   -webkit-border-radius: 50%;
@@ -7,6 +8,8 @@
   background-size: cover;
   background-position: center;
   margin: 0 29px 0 0;
+  z-index: 0;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 740px) {
@@ -19,4 +22,35 @@
   .profile__image {
     margin-right: 0;
   }
+}
+.profile__image::before {
+  content: "";
+  position: absolute;
+  top: 0; 
+  left: 0; 
+  right: 0; 
+  bottom: 0; 
+  background-color: rgba(0, 0, 0, 0); 
+  border-radius: 50%;
+  z-index: 1;
+}
+.profile__image:hover::before  {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+.profile__image::after {
+  content: ".....";
+  color: rgba(0, 0, 0, 0); 
+  position: absolute;
+  right: 47px;
+  top: 47px; 
+  bottom: 47px;
+  left: 47px;
+  background-image: url('/src/images/Vector.ico');
+  background-size: 135%;
+ 
+  display: none;
+}
+.profile__image:hover::after {
+  display: block;
+  z-index: 3;
 }
