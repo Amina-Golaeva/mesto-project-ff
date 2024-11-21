@@ -13,7 +13,7 @@ import {
 import {
   enableValidation,
   clearValidation,
-  validationConfig,
+
 } from "./components/validation.js";
 import {
   getInfoUser,
@@ -23,6 +23,7 @@ import {
   removeCard,
   updateEditProfile,
 } from "./components/api.js";
+
 
 // @todo: Темплейт карточки
 const cardTemplate = document.querySelector("#card-template").content;
@@ -51,7 +52,16 @@ const profileImg = document.querySelector(".profile__image");
 const popupCaption = document.querySelector(".popup__caption");
 const popupImg = document.querySelector(".popup__image");
 const popupButton = document.querySelector(".popup__button");
+  
 
+export const validationConfig = {
+  formSelector: ".popup__form",
+  popupButtonSelector: ".popup__button",
+  inputSelector:".popup__input",
+  inactiveButton: ".button_inactive",
+  inputTypeError: ".popup_input-type-error",
+  error: ".form__input-error_active"
+};
 
 
   const UserInfoHeader = (user) => {
@@ -80,8 +90,10 @@ const loadCards = (cards) => {
   });
 };
 const promises = [getInfoUser(), getInitialCards()];
+export let userId;
 Promise.all(promises)
   .then(([userData, cardsData]) => {
+    userId = userData._id;
     UserInfoHeader(userData);
     loadCards(cardsData);
   })
@@ -126,13 +138,15 @@ function handleProfileFormSubmit(evt) {
       console.log(err);
     })
     .finally(() => {
-      popupButton.textContent = "Сохранение";
+      popupButton.textContent = "Сохранить";
     });
 }
 popupEditForm.addEventListener("submit", handleProfileFormSubmit);
 
 function handleUpdateProfileFormSubmit(evt) {
   evt.preventDefault();
+  const popupButton = evt.target.querySelector('.popup__button');
+  popupButton.textContent = "Сохранение...";
   const addProfileImgData = {
     avatar: AvatarInput.value,
 }
@@ -144,6 +158,9 @@ function handleUpdateProfileFormSubmit(evt) {
     })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      popupButton.textContent = "Сохранить";
     });
 }
 
@@ -152,10 +169,12 @@ avatarEditForm.addEventListener("submit", handleUpdateProfileFormSubmit);
 
 function handleCardFormSubmit(evt) {
   evt.preventDefault();
+
+  const popupButton = evt.target.querySelector('.popup__button');
+  popupButton.textContent = "Сохранение...";
   const addCardData = {
     name: cardNameInput.value,
     link: cardUrlInput.value,
-    owner_id: "6714bdc8-a6fa-4080-8fb6-37620ed76b7a",
 }
   getNewCard(addCardData)
    
@@ -177,6 +196,9 @@ function handleCardFormSubmit(evt) {
     })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      popupButton.textContent = "Сохранить";
     });
    
 }
@@ -190,4 +212,4 @@ function openPopupImg(name, link) {
 }
 
 
-enableValidation();
+enableValidation(validationConfig);
