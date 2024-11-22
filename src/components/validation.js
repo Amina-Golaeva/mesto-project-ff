@@ -1,6 +1,6 @@
-import { validationConfig } from "../index";
 
-const disableSubmitButton = (buttonElement) => {
+
+const disableSubmitButton = (buttonElement,validationConfig) => {
   buttonElement.disabled = true;
   buttonElement.classList.add(validationConfig.inactiveButton);
 };
@@ -56,7 +56,7 @@ export const setEventListeners = (formElement, validationConfig) => {
   });
 };
 
-export const enableValidation = validationConfig => {
+export const enableValidation = (validationConfig) => {
   const formList = document.querySelectorAll(validationConfig.formSelector);
   formList.forEach((formElement) => {
     formElement.addEventListener("submit", function (evt) {
@@ -74,7 +74,7 @@ const hasInvalidInput = (inputList) => {
 
 const toggleButtonState = (inputList, buttonElement, validationConfig) => {
   if (hasInvalidInput(inputList)) {
-    disableSubmitButton(buttonElement);
+    disableSubmitButton(buttonElement,validationConfig);
   } else {
     buttonElement.disabled = false;
     buttonElement.classList.remove(validationConfig.inactiveButton);

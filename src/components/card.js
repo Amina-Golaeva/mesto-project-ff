@@ -1,5 +1,5 @@
 import { removeCard, putLike, deleteLike } from "./api.js";
-import { userId } from "../index.js";
+
 const cardTemplate = document.querySelector("#card-template").content;
 
 // @todo: Функция создания карточки
@@ -11,7 +11,8 @@ export const createCard = function (
   cardData,
   handleDeleteButton,
   handleLikeButton,
-  openPopupImg
+  openPopupImg,
+  userId
 ) {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
   const cardTitle = cardElement.querySelector(".card__title");

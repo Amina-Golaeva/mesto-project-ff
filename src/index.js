@@ -64,7 +64,7 @@ export const validationConfig = {
 };
 
 
-  const UserInfoHeader = (user) => {
+  const userInfoHeader = (user) => {
     profileTitle.textContent = user.name;
     profileDescription.textContent = user.about;
     profileImg.setAttribute(
@@ -84,7 +84,8 @@ const loadCards = (cards) => {
       item,
       handleDeleteButton,
       handleLikeButton,
-      openPopupImg
+      openPopupImg,
+      userId
     );
     cardList.append(cardItem);
   });
@@ -94,7 +95,7 @@ export let userId;
 Promise.all(promises)
   .then(([userData, cardsData]) => {
     userId = userData._id;
-    UserInfoHeader(userData);
+    userInfoHeader(userData);
     loadCards(cardsData);
   })
   .catch((err) => {
@@ -184,7 +185,7 @@ function handleCardFormSubmit(evt) {
         dataCard.name,
         dataCard.link,
         dataCard.likes,
-       dataCard.owner._id,
+        dataCard.owner._id,
         dataCard,
         handleDeleteButton,
         handleLikeButton,
